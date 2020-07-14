@@ -14,12 +14,6 @@ ARGV.drop(1).each do |a|
   comp2 = expected - actual
 
   puts a if !(comp1|comp2).empty?
-  if !(comp1).empty?
-    puts "present but not expected:"
-    puts comp1
-  end
-  if !(comp2).empty?
-    puts "expected but not present:"
-    puts comp2
-  end
+  puts "present but not expected:", comp1 if !comp1.empty?
+  puts "expected but not present:", comp2 if !comp2.empty?
 end

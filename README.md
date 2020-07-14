@@ -1,16 +1,15 @@
-Pastikan versi Ruby minimal 2.1.
+## Requirements
 
-## Requirement
+- Ruby ~> 2.1
+- Origami ~> 2.1
 
-Origami:
-
-```console
-$ gem install origami
-```
+    ```console
+    $ gem install origami
+    ```
 
 ## sigchk
 
-Mencetak nama file dan field signature yang ada di file tsb.
+Mencetak nama file dan info tentang field signature yang ada di file tsb:
 
 - `:page_id` adalah ID halaman di mana field tsb berada.
 - `:rect` adalah bounding box field tsb.
@@ -36,7 +35,7 @@ $ ruby sigchk.rb 10116008_2.pdf
 
 ## sigcmp
 
-Menerima dua file: file referensi dan file yang hendak dicek. Jika field signature di kedua file tsb berbeda, mencetak nama file yang dicek dan perbedaan fieldnya.
+Menerima dua file: file referensi dan file yang hendak dicek. Jika field signature di kedua file tsb berbeda, mencetak nama file yang dicek dan perbedaan fieldnya. Jika field signature kedua file sama persis, tidak mencetak apa-apa.
 
 Cara pakai:
 
