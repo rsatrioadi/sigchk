@@ -4,7 +4,7 @@ Pastikan versi Ruby minimal 2.1.
 
 Origami:
 
-```
+```console
 $ gem install origami
 ```
 
@@ -17,13 +17,13 @@ Mencetak nama file dan field signature yang ada di file tsb.
 
 Cara pakai:
 
-```
-$ ruby sigchk.rb <nama-file-pdf>
+```console
+$ ruby sigchk.rb [nama-file-pdf]
 ```
 
 Contoh pemanggilan & output:
 
-```
+```console
 $ ruby sigchk.rb 10116008_2.pdf
 10116008_2.pdf
 {:page_id=>31, :rect=>[172, 108, 303, 163]}
@@ -41,7 +41,7 @@ Menerima dua file: file referensi dan file yang hendak dicek. Jika field signatu
 Cara pakai:
 
 ```console
-$ ruby sigcmp.rb <nama-file-referensi> <nama-file-yang-dicek>
+$ ruby sigcmp.rb [nama-file-referensi] [nama-file-yang-dicek]
 ```
 
 Contoh pemanggilan & output:
