@@ -1,20 +1,29 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+
 require 'origami'
 require_relative 'arraydiff'
+require_relative 'sigchk'
 
-abort "Not enough arguments" if ARGV.length < 2
+if __FILE__ == $0
+  abort "Not enough arguments" if ARGV.length < 2
 
-reference = Origami::PDF.read( ARGV[0], verbosity: Origami::Parser::VERBOSE_QUIET )
-expected = reference.fields.select { |f| f.FT.to_s == "/Sig" }.map { |f| { :page_id => f.P.no, :rect => f.Rect } }
+  reference = Origami::PDF.read( ARGV[0], verbosity: Origami::Parser::VERBOSE_QUIET, lazy: true )
+  reference.pages.each_with_index { |p,i| p.ID= i+1 if !p.ID }
+  expected = extract_signature_fields( reference )
 
-ARGV.drop(1).each do |a|
+  ARGV.drop(1).each do |a|
 
-  inspected = Origami::PDF.read( a, verbosity: Origami::Parser::VERBOSE_QUIET )
-  actual = inspected.fields.select { |f| f.FT.to_s == "/Sig" }.map { |f| { :page_id => f.P.no, :rect => f.Rect } }
+    inspected = Origami::PDF.read( a, verbosity: Origami::Parser::VERBOSE_QUIET )
+    inspected.pages.each_with_index { |p,i| p.ID= i+1 if !p.ID }
+    actual = extract_signature_fields( inspected )
 
-  comp1 = actual.difference expected
-  comp2 = expected.difference actual
+    comp1 = actual.difference expected
+    comp2 = expected.difference actual
 
-  puts a if !(comp1+comp2).empty?
-  puts "present but not expected:", comp1 if !comp1.empty?
-  puts "expected but not present:", comp2 if !comp2.empty?
+    puts a if !(comp1+comp2).empty?
+    puts comp1.size.to_s+" present but not expected:", comp1 if !comp1.empty?
+    puts comp2.size.to_s+" expected but not present:", comp2 if !comp2.empty?
+
+  end
 end

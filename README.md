@@ -11,26 +11,26 @@
 
 Mencetak nama file dan info tentang field signature yang ada di file tsb:
 
-- `:page_id` adalah ID halaman di mana field tsb berada.
+- `:page_id` adalah nomor halaman di mana field tsb berada.
 - `:rect` adalah bounding box field tsb.
 
 Cara pakai:
 
 ```console
-$ ruby sigchk.rb [nama-file-pdf]
+$ ./sigchk.rb [nama-file-pdf]
 ```
 
 Contoh pemanggilan & output:
 
 ```console
-$ ruby sigchk.rb 10116008_2.pdf
+$ ./sigchk.rb 10116008_2.pdf
 10116008_2.pdf
-{:page_id=>31, :rect=>[172, 108, 303, 163]}
-{:page_id=>4, :rect=>[172, 108, 303, 163]}
-{:page_id=>60, :rect=>[318, 166, 431, 223]}
-{:page_id=>82, :rect=>[318, 166, 431, 223]}
-{:page_id=>31, :rect=>[528, 108, 683, 163]}
-{:page_id=>4, :rect=>[528, 108, 683, 163]}
+{:page_id=>1, :rect=>[172, 108, 303, 163]}
+{:page_id=>1, :rect=>[528, 108, 683, 163]}
+{:page_id=>2, :rect=>[172, 108, 303, 163]}
+{:page_id=>2, :rect=>[528, 108, 683, 163]}
+{:page_id=>3, :rect=>[318, 166, 431, 223]}
+{:page_id=>4, :rect=>[318, 166, 431, 223]}
 ```
 
 ## sigcmp
@@ -40,31 +40,31 @@ Menerima dua file: file referensi dan file yang hendak dicek. Jika field signatu
 Cara pakai:
 
 ```console
-$ ruby sigcmp.rb [nama-file-referensi] [nama-file-yang-dicek]
+$ ./sigcmp.rb [nama-file-referensi] [nama-file-yang-dicek]
 ```
 
 Contoh pemanggilan & output:
 
 ```console
-$ ruby sigcmp.rb 10116008_2.pdf 29318096.pdf
+$ ./sigcmp.rb 10116008_2.pdf 29318096.pdf
 29318096.pdf
-present but not expected:
-{:page_id=>31, :rect=>[152, 108, 322, 164]}
-{:page_id=>4, :rect=>[152, 108, 322, 164]}
-{:page_id=>60, :rect=>[318, 306, 431, 362]}
-{:page_id=>82, :rect=>[318, 306, 431, 362]}
-{:page_id=>4, :rect=>[443, 101, 563, 218]}
-expected but not present:
-{:page_id=>31, :rect=>[172, 108, 303, 163]}
-{:page_id=>4, :rect=>[172, 108, 303, 163]}
-{:page_id=>60, :rect=>[318, 166, 431, 223]}
-{:page_id=>82, :rect=>[318, 166, 431, 223]}
+5 present but not expected:
+{:page_id=>1, :rect=>[152, 108, 322, 164]}
+{:page_id=>1, :rect=>[443, 101, 563, 218]}
+{:page_id=>2, :rect=>[152, 108, 322, 164]}
+{:page_id=>3, :rect=>[318, 306, 431, 362]}
+{:page_id=>4, :rect=>[318, 306, 431, 362]}
+4 expected but not present:
+{:page_id=>1, :rect=>[172, 108, 303, 163]}
+{:page_id=>2, :rect=>[172, 108, 303, 163]}
+{:page_id=>3, :rect=>[318, 166, 431, 223]}
+{:page_id=>4, :rect=>[318, 166, 431, 223]}
 ```
 
 Keduanya bisa pakai wildcard, contoh:
 
 ```console
-$ ruby sigchk.rb *.pdf
+$ ./sigchk.rb *.pdf
 
-$ ruby sigcmp.rb referensi.pdf *.pdf
+$ ./sigcmp.rb referensi.pdf *.pdf
 ```
