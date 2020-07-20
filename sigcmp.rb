@@ -14,7 +14,7 @@ if __FILE__ == $0
 
   ARGV.drop(1).each do |a|
 
-    inspected = Origami::PDF.read( a, verbosity: Origami::Parser::VERBOSE_QUIET )
+    inspected = Origami::PDF.read( a, verbosity: Origami::Parser::VERBOSE_QUIET, lazy: true )
     inspected.pages.each_with_index { |p,i| p.ID= i+1 if !p.ID }
     actual = extract_signature_fields( inspected )
 
