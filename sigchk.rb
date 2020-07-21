@@ -17,6 +17,6 @@ if __FILE__ == $0
     pdf.pages.each_with_index { |p,i| p.ID= i+1 if !p.ID }
     sigs = extract_signature_fields( pdf )
     puts fname + ": " + sigs.size.to_s + " signatures"
-    puts sigs
+    puts sigs.map { |sig| "  " + sig.to_s }
   end
 end
