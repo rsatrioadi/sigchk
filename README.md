@@ -9,7 +9,7 @@
 
 ## sigchk
 
-Mencetak nama file dan info tentang field signature yang ada di file tsb:
+Mencetak nama file, jumlah signature di dalam file tsb, dan info tentang field signature yang ada di file tsb:
 
 - `:page_id` adalah nomor halaman di mana field tsb berada.
 - `:label` adalah label field signature tsb.
@@ -36,7 +36,7 @@ $ ./sigchk.rb 10116008_2.pdf
 
 ## sigcmp
 
-Menerima dua file: file referensi dan file yang hendak dicek. Jika field signature di kedua file tsb berbeda, mencetak nama file yang dicek dan perbedaan fieldnya. Jika field signature kedua file sama persis, tidak mencetak apa-apa.
+Menerima dua file: file referensi dan file yang hendak dicek. Mencetak nama file yang dicek dan jumlah signature di file tsb. Selanjutnya jika field signature di kedua file tsb berbeda, mencetak perbedaan fieldnya.
 
 Cara pakai:
 
