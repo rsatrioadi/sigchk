@@ -21,7 +21,7 @@ if __FILE__ == $0
     comp1 = actual.difference expected
     comp2 = expected.difference actual
 
-    puts a if !(comp1+comp2).empty?
+    puts a + ": " + actual.size.to_s + " signatures"
     puts comp1.size.to_s+" present but not expected:", comp1 if !comp1.empty?
     puts comp2.size.to_s+" expected but not present:", comp2 if !comp2.empty?
 
