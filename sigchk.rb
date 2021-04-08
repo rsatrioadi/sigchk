@@ -6,8 +6,8 @@ require 'origami'
 def extract_signature_fields(pdf)
   pdf.fields
     .select { |f| f.FT.to_s == "/Sig" }
-    .map { |f| { :page_id => f.P.ID, :label => f.T, :rect => f.Rect } }
-    .sort_by { |item| item[:page_id].to_i }
+    .map { |f| { :label => f.T, :page_id => f.P.ID.to_i, :rect => f.Rect } }
+    .sort_by { |item| item[:page_id] }
 end
 
 if __FILE__ == $0
