@@ -12,8 +12,12 @@ if __FILE__ == $0
   csv = CSV.read( ARGV[0] )
 
   ARGV.drop(1).each do |a|
-    if csv.any? { |row| File.basename(a).start_with?( row[0].to_s ) }
-      expected = csv.detect { |row| File.basename(a).start_with?( row[0].to_s ) }
+    if csv.any? { |row| File.basename(a).include?( row[0].to_s ) }
+      expected = csv.detect { |row| File.basename(a).include?( row[0].to_s ) }
+
+      nim = expected[0]
+
+      expected = expected
         .drop( 2 )
         .each_slice( 5 )
         .map { |slice| { :page_id => slice[0].to_i, :rect => slice.drop( 1 ).map { |v| v.to_i } } }
@@ -30,17 +34,17 @@ if __FILE__ == $0
       comp2 = expected.difference actual
 
       if !comp1.empty? || !comp2.empty?
-        report = a.gsub( /_\d\.pdf/, "" ) + ","
+        report = "#{nim},"
         report += comp1.size.to_s + " extra " unless comp1.empty?
         report += comp2.size.to_s + " missing" unless comp2.empty?
       else
-        report = a.gsub( /_\d\.pdf/, "" ) + ",OK"
+        report = "#{nim},OK"
       end
       puts report
 
-      #puts a + ": " + actual.size.to_s + " signatures"
-      #puts "  "+comp1.size.to_s+" present but not expected:", comp1.map { |sig| "    " + sig.to_s } if !comp1.empty?
-      #puts "  "+comp2.size.to_s+" expected but not present:", comp2.map { |sig| "    " + sig.to_s } if !comp2.empty?
+      # puts a + ": " + actual.size.to_s + " signatures"
+      # puts "  "+comp1.size.to_s+" present but not expected:", comp1.map { |sig| "    " + sig.to_s } if !comp1.empty?
+      # puts "  "+comp2.size.to_s+" expected but not present:", comp2.map { |sig| "    " + sig.to_s } if !comp2.empty?
     end
   end
 end

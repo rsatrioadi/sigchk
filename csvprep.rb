@@ -23,6 +23,12 @@ if __FILE__ == $0
     dek.select { |row| row[0]==prodi }.each { |row| row.drop( 2 ).each { |v| new_row << v }}
     # kalau cuma sampai dekan saja, pakai yg ini:
     #dek.select { |row| row[0]==prodi && !(row[1].start_with?("reini")) }.each { |row| row.drop( 2 ).each { |v| new_row << v }}
+    # untuk tera:
+    if nim.start_with? '3'
+      new_row << [1, 529, 101, 648, 219]
+    else
+      new_row << [1, 443, 101, 563, 218]
+    end
     puts new_row.join( ',' )
   end
 end
