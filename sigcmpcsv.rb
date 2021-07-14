@@ -37,10 +37,10 @@ if __FILE__ == $0
         report = "#{nim},"
         report += comp1.size.to_s + " extra " unless comp1.empty?
         report += comp2.size.to_s + " missing" unless comp2.empty?
-      else
-        report = "#{nim},OK"
+        puts report
+      # else
+      #   puts "#{nim},OK"
       end
-      puts report
 
       # puts a + ": " + actual.size.to_s + " signatures"
       # puts "  "+comp1.size.to_s+" present but not expected:", comp1.map { |sig| "    " + sig.to_s } if !comp1.empty?

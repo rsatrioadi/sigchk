@@ -115,6 +115,23 @@ $ ./sigcmpcsv.rb ref.csv 29018025.pdf
     {:page_id=>4, :label=>"Signature4", :rect=>[318, 166, 431, 223]}
 ```
 
+Sebelum itu harus buat file csv referensi posisi tandatangan dulu dengan `csvprep.rb`:
+
+```console
+$ ./csvprep.rb [csv-per-wisudawan] [csv-per-penandatangan] [dekan|rektor|tera]
+```
+
+Dengan csv-per-wisudawan terdiri atas:
+
+```csv
+nim,no_ps,pos_x_transkrip_id,pos_y_transkrip_id,pos_x_transkrip_en,pos_y_transkrip_en
+```
+
+dan csv-per-penandatangan terdiri atas:
+
+```csv
+no_prodi,six_signee,page,lower_left_x,lower_left_y,upper_right_x,upper_right_y
+```
 
 
 Semuanya bisa pakai wildcard, contoh:

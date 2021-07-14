@@ -2,9 +2,10 @@ require 'csv'
 require_relative 'siggy'
 
 if __FILE__ == $0
-  abort "No arguments supplied" if ARGV.length < 2
+  abort "No arguments supplied" if ARGV.length < 3
   wis = CSV.read( ARGV[0] )
   dek = CSV.read( ARGV[1] )
+  mode = ARGV[2].to_sym
   wis.drop( 1 ).each do |row|
     new_row = []
     nim = row[0]
@@ -19,15 +20,17 @@ if __FILE__ == $0
       s.bound.map { |v| v.floor }.each { |v| new_row << v }
       page += 1
     end
-    # untuk full (sampai rektor) pakai yg ini:
-    dek.select { |row| row[0]==prodi }.each { |row| row.drop( 2 ).each { |v| new_row << v }}
-    # kalau cuma sampai dekan saja, pakai yg ini:
-    #dek.select { |row| row[0]==prodi && !(row[1].start_with?("reini")) }.each { |row| row.drop( 2 ).each { |v| new_row << v }}
-    # untuk tera:
-    if nim.start_with? '3'
-      new_row << [1, 529, 101, 648, 219]
+    if mode==:dekan
+      dek.select { |row| row[0]==prodi && !(row[1].start_with?("reini")) }.each { |row| row.drop( 2 ).each { |v| new_row << v }}
     else
-      new_row << [1, 443, 101, 563, 218]
+      dek.select { |row| row[0]==prodi }.each { |row| row.drop( 2 ).each { |v| new_row << v }}
+    end
+    if mode==:tera
+      if nim.start_with? '3'
+        new_row << [1, 529, 101, 648, 219]
+      else
+        new_row << [1, 443, 101, 563, 218]
+      end
     end
     puts new_row.join( ',' )
   end
