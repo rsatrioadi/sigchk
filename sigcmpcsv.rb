@@ -38,8 +38,8 @@ if __FILE__ == $0
         report += comp1.size.to_s + " extra " unless comp1.empty?
         report += comp2.size.to_s + " missing" unless comp2.empty?
         puts report
-      # else
-      #   puts "#{nim},OK"
+      else
+        puts "#{nim},OK"
       end
 
       # puts a + ": " + actual.size.to_s + " signatures"
