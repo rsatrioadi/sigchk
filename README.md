@@ -9,17 +9,25 @@
 
 ## sigcmpcsv
 
-Memeriksa posisi ttd di file PDF terhadap file referensi. Nama file PDF harus mengandung NIM yang dimaksud.  File referensi berupa CSV dengan format baris:
-
-```
-NIM,kode-prodi(,nomor-halaman,x1,y1,x2,y2)*
-```
-
+Memeriksa posisi ttd di file PDF terhadap file referensi. Nama file PDF harus mengandung NIM yang dimaksud.  
 Cara pakai:
 
 ```console
 $ ./sigcmpcsv.rb [nama-file-referensi.csv] [nama-file-yang-dicek.pdf]
 ```
+File referensi berupa CSV dengan format baris:
+
+```
+NIM,kode-prodi(,nomor-halaman,x1,y1,x2,y2)*
+```
+
+e.g.
+|          |     |   |     |     |     |     |   |     |     |     |     |   |     |     |     |     |   |     |     |     |     | 
+|----------|-----|---|-----|-----|-----|-----|---|-----|-----|-----|-----|---|-----|-----|-----|-----|---|-----|-----|-----|-----| 
+| 101XXYYY | 101 | 3 | 318 | 157 | 431 | 214 | 4 | 318 | 157 | 431 | 214 | 2 | 174 | 111 | 299 | 167 | 1 | 174 | 111 | 299 | 167 | 
+| 101XXYYZ | 101 | 3 | 318 | 157 | 431 | 214 | 4 | 318 | 157 | 431 | 214 | 2 | 174 | 111 | 299 | 167 | 1 | 174 | 111 | 299 | 167 | 
+| 101XXYZZ | 101 | 3 | 318 | 166 | 431 | 223 | 4 | 318 | 157 | 431 | 214 | 2 | 174 | 111 | 299 | 167 | 1 | 174 | 111 | 299 | 167 | 
+
 
 Output berupa satu line untuk setiap file PDF yang diperiksa. Setiap line merupakan tuple `<NIM>,<hasil pemeriksaan>`
 
@@ -30,6 +38,8 @@ $ ./sigcmpcsv.rb ref.csv 12345678.pdf 23456789.pdf
 12345678,OK
 23456789,4 extra 
 ```
+
+## csvprep
 
 File referensi posisi tandatangan dapat dibuat dengan `csvprep.rb`:
 
@@ -43,11 +53,32 @@ Dengan csv-per-wisudawan terdiri atas:
 nim,no_ps,pos_x_transkrip_id,pos_y_transkrip_id,pos_x_transkrip_en,pos_y_transkrip_en
 ```
 
+e.g.
+
+| nim      | no_ps | pos_x_transkrip_id | pos_y_transkrip_id | pos_x_transkrip_en | pos_y_transkrip_en | 
+|----------|-------|--------------------|--------------------|--------------------|--------------------| 
+| 101XXYYY | 101   | 112.10875939819299 | 220.12189505645415 | 112.10875939819299 | 220.12190041930518 | 
+| 101XXYYZ | 101   | 112.10875939819299 | 220.12189505645415 | 112.10875939819299 | 220.12190041930518 | 
+| 101XXYZZ | 101   | 112.10875939819299 | 216.78303228130517 | 112.10875939819299 | 220.1219057821562  | 
+
+
 dan csv-per-penandatangan terdiri atas:
 
 ```csv
 no_prodi,six_signee,page,lower_left_x,lower_left_y,upper_right_x,upper_right_y
 ```
+
+e.g.
+
+| no_prodi | six_signee          | page | lower_left_x | lower_left_y | upper_right_x | upper_right_y | 
+|----------|---------------------|------|--------------|--------------|---------------|---------------| 
+| 101      | rxxxxxxk@itb.ac.id  | 2    | 528          | 108          | 683           | 163           | 
+| 101      | rxxxxxx@itb.ac.id  | 1    | 528          | 108          | 683           | 163           | 
+| 101      | sxxxxxxxx@itb.ac.id | 2    | 174          | 111          | 299           | 167           | 
+| 101      | sxxxxxxxx@itb.ac.id | 1    | 174          | 111          | 299           | 167           | 
+
+
+Untuk memeriksa tandatangan digital di ijazah cukup pakai dua script tersebut. Di bawah ini penjelasan komponen-komponen yang lebih primitif:
 
 ## sigchk
 
